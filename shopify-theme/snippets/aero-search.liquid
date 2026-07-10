@@ -1,0 +1,16 @@
+<div class="aero-modal" id="AeroSearchGlass" aria-hidden="true" role="dialog">
+  <div class="aero-modal__backdrop"></div>
+  <div class="aero-modal__content">
+    <button class="aero-modal__close" aria-label="Close">ESC TO CLOSE</button>
+    <form action="{{ routes.search_url }}" method="get" class="aero-search-form" role="search" onsubmit="return false;">
+      <input 
+        type="text" 
+        placeholder="Discover optic structures..." 
+        class="aero-modal__input"
+        autocomplete="off"
+        spellcheck="false"
+      >
+      <div class="aero-modal__line"></div>
+    </form>
+  </div>
+</div>

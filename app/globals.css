@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-serif), ui-serif, Georgia, serif;
+  
+  /* Crimson Luxury Palette */
+  --color-velvet: #130202;
+  --color-ruby: #8a0c08;
+  --color-ruby-dark: #4a0505;
+  --color-rose-gold: #cba1a1;
+  --color-platinum: #e5e4e2;
+  --color-champagne: #f7e7ce;
+  --color-pearl: #fdfbf7;
+  
+  --color-bg: var(--color-velvet);
+  --color-fg: var(--color-pearl);
+  --color-line: rgba(203, 161, 161, 0.15); /* Rose gold tinted lines */
+}
+
+@layer base {
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    cursor: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .text-shadow-glow {
+    text-shadow: 0 0 20px rgba(138, 12, 8, 0.4);
+  }
+
+  .glass-crimson {
+    background: rgba(18, 9, 9, 0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(138, 12, 8, 0.2);
+  }
+
+  .oval-mask {
+    mask-image: radial-gradient(ellipse at center, black 65%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 65%, transparent 100%);
+  }
+
+  .vertical-text {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+
+  /* Cinematic Hover */
+  .cinematic-hover {
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  .cinematic-hover:hover {
+    transform: scale(1.05);
+    filter: brightness(1.2) contrast(1.1);
+  }
+  
+  /* Shop Item Hover */
+  .shop-item .shop-item-overlay {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+  
+  .shop-item:hover .shop-item-overlay {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-cinematic",
+      "settings": {
+        "title": "CRIMSON",
+        "subtitle": "Exhibition 03 / Fall Winter Col.\nA study in severe elegance and structural romance.",
+        "color_heading": "#ffffff",
+        "button_label": "Enter Store",
+        "button_link": "shopify:\/\/collections\/fw26"
+      }
+    },
+    "marquee": {
+      "type": "collection-marquee",
+      "settings": {
+        "text_1": "Maison Crimson",
+        "text_2": "Director's Cut",
+        "text_3": "FW26"
+      }
+    },
+    "featured_artifact": {
+      "type": "featured-product-museum",
+      "settings": {
+        "product": "the-structural-trench"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "marquee",
+    "featured_artifact"
+  ]
+}

@@ -1,0 +1,76 @@
+:root {
+  --color-crimson: #8a0c08;
+  --color-paper: #f5f2ed;
+}
+
+.maison-hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.maison-hero__media {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: subtleZoom 15s infinite alternate;
+}
+
+.maison-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(7,3,3,0.3) 0%, transparent 50%, rgba(7,3,3,1) 100%);
+}
+
+.maison-hero__content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  margin-top: 10vh;
+}
+
+.maison-hero__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: min(15vw, 180px);
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  margin-bottom: 2rem;
+}
+
+.maison-button {
+  display: inline-flex;
+  position: relative;
+  padding: 1rem 2.5rem;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+  text-decoration: none;
+}
+
+.maison-button__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--color-crimson);
+  transform: translateY(-100%);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.maison-button:hover .maison-button__fill {
+  transform: translateY(0);
+}
+
+.maison-button__text {
+  position: relative;
+  z-index: 2;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: white;
+}

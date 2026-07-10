@@ -1,0 +1,81 @@
+<link href="{{ 'section-hero-cinematic.css' | asset_url }}" rel="stylesheet">
+<script src="{{ 'section-hero-cinematic.js' | asset_url }}" defer></script>
+
+<div class="maison-hero" data-section-id="{{ section.id }}">
+  <div class="maison-hero__background">
+    {% if section.settings.bg_video != blank %}
+      {{ section.settings.bg_video | video_tag: autoplay: true, loop: true, muted: true, class: 'maison-hero__media' }}
+    {% else %}
+      {{ section.settings.bg_image | image_url: width: 2400 | image_tag: class: 'maison-hero__media' }}
+    {% endif %}
+    <div class="maison-hero__overlay"></div>
+  </div>
+
+  <div class="maison-hero__content">
+    <h1 class="maison-hero__title" style="color: {{ section.settings.color_heading }};">
+      {{ section.settings.title }}
+    </h1>
+    <p class="maison-hero__subtitle" style="color: {{ section.settings.color_text }};">
+      {{ section.settings.subtitle }}
+    </p>
+    {% if section.settings.button_link != blank %}
+      <a href="{{ section.settings.button_link }}" class="maison-button maison-button--magnetic">
+        <span class="maison-button__fill"></span>
+        <span class="maison-button__text">{{ section.settings.button_label }}</span>
+      </a>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cinematic Hero",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "CRIMSON"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle text"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "video",
+      "id": "bg_video",
+      "label": "Background Video"
+    },
+    {
+      "type": "color",
+      "id": "color_heading",
+      "label": "Heading Color",
+      "default": "#f5f2ed"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Enter Store"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cinematic Hero"
+    }
+  ]
+}
+{% endschema %}

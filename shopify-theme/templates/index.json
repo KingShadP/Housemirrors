@@ -1,0 +1,55 @@
+{
+  "sections": {
+    "hero": {
+      "type": "aero-hero",
+      "settings": {
+        "title": "WEIGHTLESS\nFORM",
+        "subtitle": "SS26 OPTIC SYSTEM",
+        "btn": "VIEW EDITORIAL",
+        "btn_link": "shopify:\/\/collections\/all"
+      }
+    },
+    "gallery": {
+      "type": "aero-gallery",
+      "settings": {
+        "title": "AERO ARCHIVE"
+      },
+      "blocks": {
+        "item_1": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "quote": {
+          "type": "text_panel",
+          "settings": {
+            "text": "Silence is the greatest structure."
+          }
+        },
+        "item_2": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "item_3": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_1",
+        "quote",
+        "item_2",
+        "item_3"
+      ]
+    }
+  },
+  "order": [
+    "hero",
+    "gallery"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "name": "House of Mirrors (Vault OS)",
+  "description": "A surreal cinematic archive experience featuring a visual discography, screening room, and multi-media galleries with a luxurious 'Director's Cut' aesthetic.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

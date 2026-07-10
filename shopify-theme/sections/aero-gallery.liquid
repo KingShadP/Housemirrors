@@ -1,0 +1,88 @@
+<section class="aero-gallery" data-section-id="{{ section.id }}">
+  <div class="aero-gallery__header aero-reveal">
+    <h2 class="aero-gallery__title">{{ section.settings.title }}</h2>
+    <button class="aero-search-trigger" aria-label="Open Filter">
+      [ / SEARCH_INDEX ]
+    </button>
+  </div>
+  
+  <div class="aero-gallery__grid">
+    {%- for block in section.blocks -%}
+      
+      {%- if block.type == 'product' -%}
+        {%- assign prod = all_products[block.settings.product] -%}
+        <a href="{{ prod.url | default: '#' }}" class="aero-card aero-reveal" style="transition-delay: {{ forloop.index | times: 100 }}ms;" {{ block.shopify_attributes }}>
+          <div class="aero-card__media">
+            {%- if prod.featured_image != blank -%}
+              {{ prod.featured_image | image_url: width: 800 | image_tag: class: 'aero-card__img', loading: 'lazy' }}
+            {%- else -%}
+              <div class="aero-card__blank">AERO MOCK</div>
+            {%- endif -%}
+            <div class="aero-card__hover-glass">
+              <span>VIEW OBJECT</span>
+            </div>
+          </div>
+          <div class="aero-card__info">
+            <h3 class="aero-card__prod">{{ prod.title | default: 'Structural Frame #01' }}</h3>
+            <span class="aero-card__price">{{ prod.price | money | default: '450.00' }}</span>
+          </div>
+        </a>
+        
+      {%- elsif block.type == 'text_panel' -%}
+        <div class="aero-text-panel aero-reveal" {{ block.shopify_attributes }} style="transition-delay: {{ forloop.index | times: 100 }}ms;">
+           <p>{{ block.settings.text }}</p>
+        </div>
+      {%- endif -%}
+
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Aero Gallery",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "THE ARCHIVE"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product Artifact",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    },
+    {
+      "type": "text_panel",
+      "name": "Quote Panel",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Statement",
+          "default": "Silence is the greatest structure."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Aero Gallery",
+      "blocks": [
+        { "type": "product" },
+        { "type": "text_panel" },
+        { "type": "product" }
+      ]
+    }
+  ]
+}
+{% endschema %}

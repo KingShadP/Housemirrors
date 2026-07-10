@@ -1,0 +1,255 @@
+:root {
+  --c-base: #f9f9f9;
+  --c-surface: #ffffff;
+  --c-ink: #050505;
+  --c-slate: #888888;
+  --c-line: rgba(0,0,0,0.06);
+  --c-accent: #003cff;
+  --c-glass: rgba(255,255,255,0.6);
+
+  --f-sans: 'Inter', system-ui, sans-serif;
+  --f-mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--c-base);
+  color: var(--c-ink);
+  font-family: var(--f-sans);
+  cursor: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--c-accent); color: #fff; }
+
+h1, h2, h3 { font-weight: 800; letter-spacing: -0.04em; text-transform: uppercase; line-height: 1; }
+a { color: inherit; text-decoration: none; }
+
+/* -------------------------------- */
+/* AERO COMPONENTS                  */
+/* -------------------------------- */
+
+/* Floating Soft Orb Background */
+.aero-orb {
+  position: fixed;
+  width: 60vmax; height: 60vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(0, 60, 255, 0.12), transparent 60%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  pointer-events: none;
+  filter: blur(80px);
+  transition: transform 0.5s var(--ease);
+}
+
+/* Custom Inverted Cursor */
+.aero-cursor {
+  position: fixed; top: 0; left: 0;
+  width: 12px; height: 12px;
+  background: var(--c-accent);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none; z-index: 100000;
+  mix-blend-mode: multiply;
+  transition: width 0.3s, height 0.3s, background 0.3s;
+}
+.aero-cursor.hovering {
+  width: 60px; height: 60px;
+  background: rgba(0, 60, 255, 0.1);
+  border: 1px solid var(--c-accent);
+}
+
+@media (max-width: 768px) {
+  .aero-cursor { display: none; }
+  body { cursor: auto; }
+}
+
+/* Minimal Boot Sequence */
+.aero-boot {
+  position: fixed; inset: 0;
+  background: var(--c-base);
+  z-index: 99999;
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 1.2s var(--ease);
+}
+.aero-boot.is-hidden { opacity: 0; pointer-events: none; }
+.aero-boot__line {
+  width: 1px; height: 0; background: var(--c-accent);
+  animation: bootDraw 1.2s var(--ease) forwards;
+}
+@keyframes bootDraw {
+  0% { height: 0; opacity: 1; }
+  80% { height: 120px; opacity: 1; }
+  100% { height: 120px; opacity: 0; }
+}
+
+/* Liquid Button */
+.aero-btn {
+  display: inline-flex; overflow: hidden;
+  padding: 1.2rem 2.8rem;
+  border: 1px solid var(--c-line);
+  border-radius: 100px;
+  font-family: var(--f-mono); font-size: 0.65rem; letter-spacing: 0.2em;
+  color: var(--c-ink); text-decoration: none; text-transform: uppercase;
+  position: relative; background: var(--c-glass);
+  backdrop-filter: blur(10px);
+  transition: border-color 0.4s;
+  cursor: pointer;
+}
+.aero-btn::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background: var(--c-accent); border-radius: 100px;
+  transform: scaleX(0); transform-origin: right;
+  transition: transform 0.6s var(--ease); z-index: -1;
+}
+.aero-btn:hover { color: #fff; border-color: var(--c-accent); }
+.aero-btn:hover::before { transform: scaleX(1); transform-origin: left; }
+
+/* Intersection Reveals */
+.aero-reveal {
+  opacity: 0; transform: translateY(40px) scale(0.98);
+  filter: blur(8px);
+  transition: opacity 1.2s var(--ease), transform 1.2s var(--ease), filter 1.2s var(--ease);
+}
+.aero-reveal.is-revealed {
+  opacity: 1; transform: translateY(0) scale(1); filter: blur(0);
+}
+
+/* -------------------------------- */
+/* AERO SEARCH MODAL                */
+/* -------------------------------- */
+
+.aero-search-trigger {
+  background: transparent; border: none; font-family: var(--f-mono);
+  font-size: 0.65rem; letter-spacing: 0.2em; color: var(--c-slate);
+  cursor: pointer; transition: color 0.3s; text-transform: uppercase;
+}
+.aero-search-trigger:hover { color: var(--c-accent); }
+
+.aero-modal {
+  position: fixed; inset: 0; z-index: 100000;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity 0.5s var(--ease);
+}
+.aero-modal.is-open { opacity: 1; pointer-events: auto; }
+.aero-modal__backdrop {
+  position: absolute; inset: 0; background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(30px);
+}
+.aero-modal__content {
+  position: relative; width: 100%; max-width: 1000px; padding: 2rem;
+  transform: translateY(20px); transition: transform 0.5s var(--ease);
+}
+.aero-modal.is-open .aero-modal__content { transform: translateY(0); }
+.aero-modal__close {
+  position: absolute; top: -60px; right: 2rem; background: transparent; border: none;
+  font-family: var(--f-mono); font-size: 0.6rem; letter-spacing: 0.2em;
+  cursor: pointer; color: var(--c-slate);
+}
+.aero-modal__close:hover { color: var(--c-accent); }
+.aero-search-form { position: relative; }
+.aero-modal__input {
+  width: 100%; background: transparent; border: none;
+  font-family: var(--f-sans); font-size: clamp(3rem, 6vw, 6rem); font-weight: 300;
+  color: var(--c-ink); outline: none; letter-spacing: -0.04em;
+}
+.aero-modal__input::placeholder { color: var(--c-line); }
+.aero-modal__line {
+  width: 100%; height: 2px; background: var(--c-line); margin-top: 2rem;
+  position: relative; overflow: hidden;
+}
+.aero-modal__input:focus ~ .aero-modal__line::after { transform: translateX(0); }
+.aero-modal__line::after {
+  content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  background: var(--c-accent); transform: translateX(-100%); transition: transform 0.6s var(--ease);
+}
+
+/* -------------------------------- */
+/* SECTIONS: HERO & GALLERY         */
+/* -------------------------------- */
+
+.aero-hero {
+  position: relative; width: 100vw; height: 100vh; min-height: 700px;
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; overflow: hidden; border-bottom: 1px solid var(--c-line);
+}
+.aero-hero__content {
+  position: relative; z-index: 10;
+  backdrop-filter: blur(40px);
+  padding: 5rem 6rem; border-radius: 40px;
+  border: 1px solid var(--c-surface);
+  background: rgba(255, 255, 255, 0.4);
+  display: flex; flex-direction: column; align-items: center; gap: 2rem;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.03);
+}
+.aero-hero__title {
+  font-size: min(12vw, 140px);
+  white-space: pre-line; color: var(--c-ink);
+}
+.aero-hero__meta {
+  font-family: var(--f-mono); font-size: 0.75rem; letter-spacing: 0.3em;
+  color: var(--c-slate); text-transform: uppercase;
+}
+
+.aero-gallery { padding: 10rem 4rem; max-width: 1800px; margin: 0 auto; }
+.aero-gallery__header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  margin-bottom: 6rem; border-bottom: 1px solid var(--c-line); padding-bottom: 2rem;
+}
+.aero-gallery__title { font-size: 3rem; }
+.aero-gallery__meta { font-family: var(--f-mono); font-size: 0.7rem; letter-spacing: 0.2rem; color: var(--c-slate); }
+.aero-gallery__grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 2rem; }
+
+@media(min-width: 768px) { .aero-gallery__grid { grid-template-columns: repeat(2, 1fr); } }
+@media(min-width: 1200px) { .aero-gallery__grid { grid-template-columns: repeat(4, 1fr); } }
+
+.aero-card { display: flex; flex-direction: column; cursor: pointer; text-decoration: none; color: inherit; }
+.aero-card__media {
+  aspect-ratio: 4/5; position: relative; overflow: hidden;
+  border-radius: 20px; background: var(--c-surface); border: 1px solid var(--c-line);
+  margin-bottom: 1.5rem; transition: transform 0.6s var(--ease), border-color 0.6s, box-shadow 0.6s;
+}
+.aero-card:hover .aero-card__media { transform: translateY(-10px); border-color: var(--c-accent); box-shadow: 0 20px 40px rgba(0, 60, 255, 0.05); }
+.aero-card__img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease), filter 0.6s; filter: contrast(0.95) saturate(0.8); }
+.aero-card:hover .aero-card__img { transform: scale(1.05); filter: contrast(1.05) saturate(1); }
+
+.aero-card__hover-glass {
+  position: absolute; inset: 0; background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px); opacity: 0; transition: opacity 0.5s;
+  display: flex; align-items: center; justify-content: center;
+}
+.aero-card__hover-glass span {
+  background: var(--c-surface); padding: 1rem 2rem; border-radius: 40px;
+  font-family: var(--f-mono); font-size: 0.65rem; letter-spacing: 0.2em;
+  transform: translateY(20px); transition: transform 0.5s var(--ease);
+}
+.aero-card:hover .aero-card__hover-glass { opacity: 1; }
+.aero-card:hover .aero-card__hover-glass span { transform: translateY(0); }
+
+.aero-card__info { display: flex; justify-content: space-between; align-items: baseline; padding: 0 0.5rem; }
+.aero-card__prod { font-size: 1.1rem; font-weight: 500; text-transform: uppercase; }
+.aero-card__price { font-family: var(--f-mono); color: var(--c-slate); font-size: 0.8rem; }
+.aero-card__blank {
+  width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+  color: var(--c-slate); font-family: var(--f-mono); font-size: 1rem; letter-spacing: 0.3em;
+  background: repeating-linear-gradient(45deg, var(--c-base), var(--c-base) 10px, transparent 10px, transparent 20px);
+}
+
+.aero-text-panel {
+  grid-column: span 1; display: flex; align-items: center; justify-content: center;
+  padding: 4rem; text-align: center; font-size: 2.5rem; font-weight: 300; line-height: 1.1;
+  color: var(--c-accent); letter-spacing: -0.02em; border-radius: 20px;
+  background: var(--c-surface); border: 1px solid var(--c-line);
+}
+@media(min-width: 1200px) { .aero-text-panel { grid-column: span 2; font-size: 4rem; } }
+
+@media (max-width: 768px) {
+  .aero-hero__content { padding: 3rem 1.5rem; border-radius: 20px; border-left: none; border-right: none; }
+  .aero-gallery { padding: 6rem 2rem; }
+  .aero-gallery__header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+}
